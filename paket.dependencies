@@ -1,11 +1,96 @@
+version 5.255.0
 source https://api.nuget.org/v3/index.json
+storage: none
 
-nuget FSharp.Core 4.7.2
+
+group Generic
+    source https://api.nuget.org/v3/index.json
+    storage: none
+    
+
+    # Add the nuget packages you use here
+    nuget FSharp.Core 4.7.2
+group SqlProvider
+    source https://api.nuget.org/v3/index.json
+    storage: none
+    
+    generate_load_scripts: true
+    frameworks: netstandard2.0
+    # frameworks: net461, netcoreapp3.1, netcoreapp3.0, netstandard2.0
+
+    # Add the nuget packages you use here
+    nuget FSharp.Core 4.7.2
+    nuget System.Data.OleDb
+    nuget Microsoft.Win32.Registry < 5.0
+    nuget System.Configuration.ConfigurationManager < 5.0
+    nuget System.Diagnostics.PerformanceCounter < 5.0
+    nuget System.Memory < 5.0
+    nuget System.Security.Principal.Windows < 5.0
+    nuget Oracle.ManagedDataAccess.Core ~> 2.19.91 copy_local: true
+
+    # nuget NETStandard.Library.NETFramework storage: none, copy_local: true
+    # nuget System.Text.Encoding.CodePages
+
+    # THis lines are used by Paket to get the latest version of the Type Provider SDK files
+    # github fsprojects/FSharp.TypeProviders.SDK src/ProvidedTypes.fsi
+    # github fsprojects/FSharp.TypeProviders.SDK src/ProvidedTypes.fs
+
+    # nuget System.Data.SqlClient # this is SQLServer only
+    # nuget NETStandard.Library.NETFramework storage: packages 
+    
+    # nuget System.Runtime
+    # nuget System.Runtime.Loader
+    # nuget System.Runtime.Serialization.Primitives
+    # nuget System.Runtime.Serialization.Formatters
+    # nuget System.IO
+    # nuget System.Console
+    # nuget System.Reflection
+    # nuget System.Reflection.TypeExtensions
+    # nuget System.Data.Common
+    # nuget System.Data.Odbc
+    # nuget Microsoft.Data.SQLite 2.0
+    # nuget NETStandard.Library.NETFramework
+    # nuget System.Text.Encoding.CodePages
+
+    # THis lines are used by Paket to get the latest version of the Type Provider SDK files
+    # github fsprojects/FSharp.TypeProviders.SDK src/ProvidedTypes.fsi
+    # github fsprojects/FSharp.TypeProviders.SDK src/ProvidedTypes.fs
 
 group Test
     source https://api.nuget.org/v3/index.json
+    storage: none
+    generate_load_scripts: true
+    nuget FSharp.Core 4.7.2
     nuget xunit
     nuget xunit.runner.visualstudio
     nuget coverlet.collector
     nuget Microsoft.NET.Test.Sdk
     nuget Microsoft.NETCore.App
+
+group Build
+    source https://api.nuget.org/v3/index.json
+    storage: none
+    framework: netstandard2.0
+    nuget FSharp.Core < 5.0
+    nuget Fake.Core.Target
+    nuget Fake.Core.Process
+    nuget Fake.Core.ReleaseNotes 
+    nuget Fake.IO.FileSystem
+    nuget Fake.DotNet.Cli
+    nuget Fake.DotNet.MSBuild
+    nuget Fake.DotNet.Paket
+    nuget Fake.DotNet.NuGet 
+    nuget Fake.Tools.Git
+    nuget Microsoft.Win32.Registry < 5.0
+    nuget System.Buffers < 5.0
+    nuget System.Memory < 5.0
+    nuget System.Security.AccessControl < 5.0
+    nuget System.Security.Principal.Windows < 5.0
+    nuget System.Reactive < 5.0
+    nuget Nuget.Packaging < 5.8 framework: netstandard2.0
+    nuget Nuget.Protocol < 5.8 framework: netstandard2.0
+    nuget Nuget.Common < 5.8 framework: netstandard2.0
+    nuget Nuget.Frameworks < 5.8 framework: netstandard2.0
+    nuget Nuget.Versioning < 5.8 framework: netstandard2.0
+    nuget Nuget.CommandLine < 5.8 framework: netstandard2.0
+    nuget Nuget.Configuration < 5.8 framework: netstandard2.0

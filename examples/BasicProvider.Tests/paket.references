@@ -1,4 +1,6 @@
-FSharp.Core
+
+group Generic
+    FSharp.Core
 
 group Test
 

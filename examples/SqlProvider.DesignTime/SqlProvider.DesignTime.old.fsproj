@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <DefineConstants>IS_DESIGNTIME</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- <Compile Include="AssemblyInfo.fs" /> -->
+    <Compile Include="..\SqlProvider.Runtime\SqlProvider.Runtime.fs" />
+    <Compile Include="SqlProvider.DesignTime.fs" />
+    <Compile Include="SqlDesignTime.fs" />
+    <None Include="paket.references" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\FSharp.TypeProviders.SDK.fsproj" />
+    <ProjectReference Include="..\SQLProvider.Shared\SqlProvider.Shared.fsproj" />
+  </ItemGroup>
+  <Import Project="..\..\.paket\Paket.Restore.targets" />
+</Project>

@@ -1,12 +1,24 @@
 #if INTERACTIVE
 #load "../src/ProvidedTypes.fsi" "../src/ProvidedTypes.fs"
 #load "../src/ProvidedTypesTesting.fs"
-
 #else
 
 module TPSDK.BasicErasedTests
 #endif
 
+#if INTERACTIVE
+type EnvIsInteractiveT = true
+
+[<Literal>]
+let EnvIsInteractive = true
+
+#else
+// type EnvIsInteractiveT = "false"
+
+[<Literal>]
+let EnvIsInteractive = false
+
+#endif
 open System
 open System.Reflection
 open ProviderImplementation.ProvidedTypes

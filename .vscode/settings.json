@@ -1,0 +1,10 @@
+{
+  "FSharp.excludeProjectDirectories": [
+    ".git",
+    "paket-files",
+    ".fable",
+    "packages",
+    "node_modules",
+    "temp"
+  ]
+}

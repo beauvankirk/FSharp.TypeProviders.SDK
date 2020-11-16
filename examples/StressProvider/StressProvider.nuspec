@@ -20,7 +20,7 @@
     <!-- These are the dependencies of the type provider runtime component --> 
     <dependencies>
       <group targetFramework="netstandard2.0">
-        <dependency id="FSharp.Core" version="4.3.4" />
+        <dependency id="FSharp.Core" version="4.7.2" />
       </group>
     </dependencies>
     <!-- Control which references are added explicitly --> 

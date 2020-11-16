@@ -1,3 +1,7 @@
+#### 6.0.0.1 - November 11, 2020
+* Repack with updates including NETStandard2.0-exclusive
+* Switch from paket storage:packages to storage:none 
+
 #### 6.0.0 - December 24, 2019
 * Template migrated to .NET Core 3.1 
 

@@ -1,13 +1,4 @@
-#r @"paket:
-source https://api.nuget.org/v3/index.json
-nuget Fake.Core.Target
-nuget Fake.Core.Process
-nuget Fake.Core.ReleaseNotes 
-nuget Fake.IO.FileSystem
-nuget Fake.DotNet.Cli
-nuget Fake.DotNet.MSBuild
-nuget Fake.DotNet.Paket
-nuget Fake.DotNet.NuGet //"
+#r @"paket: groupref build //"
 
 #if !FAKE
 #load "./.fake/build.fsx/intellisense.fsx"
@@ -19,6 +10,7 @@ open Fake.Core.TargetOperators
 open Fake.Core 
 open Fake.IO
 open Fake.DotNet
+open Fake.Tools.Git
 open System
 open System.IO
 open Fake.IO.Globbing.Operators
@@ -38,18 +30,27 @@ Target.create "Clean" (fun _ ->
     !! "**/**/bin/" |> Shell.cleanDirs
     !! "**/**/obj/" |> Shell.cleanDirs
     
-    Shell.cleanDirs ["bin"; "temp"]
+    Shell.cleanDirs [
+        "bin";
+        // "temp"
+        ]
 )
 
-Target.create "Build" (fun _ ->
+Target.create "BuildLib" (fun _ ->
     DotNet.build setParams "src/FSharp.TypeProviders.SDK.fsproj"
+)
+
+Target.create "BuildTests" (fun _ ->
     DotNet.build setParams "tests/FSharp.TypeProviders.SDK.Tests.fsproj"
 )
 
 Target.create "Examples" (fun _ ->
-    DotNet.build setParams "examples/BasicProvider.DesignTime/BasicProvider.DesignTime.fsproj"
-    DotNet.build setParams "examples/BasicProvider.Runtime/BasicProvider.Runtime.fsproj"
-    DotNet.build setParams "examples/StressProvider/StressProvider.fsproj"
+    // DotNet.build setParams "examples/BasicProvider.DesignTime/BasicProvider.DesignTime.fsproj"
+    // DotNet.build setParams "examples/BasicProvider.Runtime/BasicProvider.Runtime.fsproj"
+    // DotNet.build setParams "examples/SqlProvider.Shared/SqlProvider.Shared.fsproj"
+    DotNet.build setParams "examples/SqlProvider.DesignTime/SqlProvider.DesignTime.fsproj"
+    DotNet.build setParams "examples/SqlProvider.Runtime/SqlProvider.Runtime.fsproj"
+    // DotNet.build setParams "examples/StressProvider/StressProvider.fsproj"
 )
 
 Target.create "RunTests" (fun _ ->
@@ -81,6 +82,8 @@ Target.create "Pack" (fun _ ->
 
     DotNet.pack setParams "examples/BasicProvider.Runtime/BasicProvider.Runtime.fsproj"
     DotNet.pack setParams "examples/StressProvider/StressProvider.fsproj"
+    DotNet.pack setParams "examples/SqlProvider.Runtime/SqlProvider.Runtime.fsproj"
+    DotNet.pack setParams "examples/SqlProvider.DesignTime/SqlProvider.DesignTime.fsproj"
 
     DotNet.pack (fun p -> { 
         setParams p with 
@@ -123,15 +126,31 @@ Target.create "TestTemplatesNuGet" (fun _ ->
         dotnet new typeprovider -n tp3 -lang:F#
         *)
 )
-
+Target.create "Dummy" ignore
+Target.create "Rebuild" ignore
+Target.create "Build" ignore
 Target.create "All" ignore
 
 "Clean"
-  ==> "Build"
-  ==> "Examples"
-  ==> "RunTests"
-  ==> "Pack"
-  ==> "TestTemplatesNuGet"
-  ==> "All"
+  ?=> "BuildLib"
+  ?=> "BuildTests"
+  ?=> "Examples"
+  ?=> "RunTests"
+  ?=> "Pack"
+  ?=> "TestTemplatesNuGet"
+  ?=> "All"
+
+"BuildLib" ==> "Build"
+"BuildTests" ==> "Build"
+"Examples" ==> "Build"
+
+
+"Clean" ==> "Rebuild"
+"Build" ==> "Rebuild"
+
+"Rebuild" ==> "All"
+"RunTests" ==> "All"
+"Pack" ==> "All"
+"TestTemplatesNuGet" ==> "All"
 
 Target.runOrDefault "All"

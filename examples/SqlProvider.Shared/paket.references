@@ -1,0 +1,9 @@
+group SqlProvider
+  FSharp.Core
+  System.Data.OleDb
+  Microsoft.Win32.Registry
+  System.Configuration.ConfigurationManager
+  System.Diagnostics.PerformanceCounter
+  System.Memory
+  System.Security.Principal.Windows
+  Oracle.ManagedDataAccess.Core

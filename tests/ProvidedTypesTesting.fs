@@ -590,8 +590,35 @@ module internal Targets =
         match System.Environment.OSVersion.Platform with
         | System.PlatformID.Win32NT -> true
         | _ -> false
-    
-    let packagesDirectory isTest = 
+
+    let fsharpCorePackageDir () =
+        // let root = Path.GetDirectoryName(Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath)
+        // let rec loop dir =
+        //      if Directory.Exists(dir ++ "packages" ++ "FSharp.Core") then 
+        //          dir ++ "packages" ++ "FSharp.Core"
+        //      else
+        //          let parent = Path.GetDirectoryName(dir)
+        //          match parent with
+        //          | null | "" -> failwith ("couldn't find packages directory anywhere above  " + root)
+        //          | _ ->  loop parent
+                 
+        // loop  root
+        Path.GetDirectoryName(@"D:\nuget\fsharp.core\4.7.2\lib")
+    // let testGroupPackagesDir () = 
+    //     // this takes into account both linux-on-windows (can't use __SOURCE_DIRECTORY__) and shadow copying (can't use .Location)
+    //     let root = Path.GetDirectoryName(Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath)
+    //     let rec loop dir =
+    //          if Directory.Exists(dir ++ "packages" ++ "test") then 
+    //              dir ++ "packages" ++ "test"
+    //          else
+    //              let parent = Path.GetDirectoryName(dir)
+    //              match parent with
+    //              | null | "" -> failwith ("couldn't find packages directory anywhere above  " + root)
+    //              | _ ->  loop parent
+                 
+    //     loop  root
+
+    let packagesDirectoryOld isTest = 
         // this takes into account both linux-on-windows (can't use __SOURCE_DIRECTORY__) and shadow copying (can't use .Location)
         let root = Path.GetDirectoryName(Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath)
         let rec loop dir =
@@ -606,43 +633,51 @@ module internal Targets =
         loop  root
 
     let paketPackageDirectoryForFSharpCore() =
-        let pd = packagesDirectory false
+        let pd = fsharpCorePackageDir ()
         if Directory.Exists(pd) then 
             Some pd
         else 
             None
 
-    let paketPackageFromMainPaketGroup packageName = 
-        let pd = packagesDirectory true
-        if Directory.Exists (pd ++ packageName) then 
-            pd ++ packageName
-        else 
-            failwithf "couldn't find %s/NETStandard.Library, which is needed for testing .NET Standard 2.0 code generation of a type provider using these utilities" pd
+    // let paketPackageFromTestPaketGroup packageName = 
+    //     let pd = testGroupPackagesDir ()
+    //     if Directory.Exists (pd ++ packageName) then 
+    //         pd ++ packageName
+    //     else 
+    //         failwithf "couldn't find %s/NETStandard.Library, which is needed for testing .NET Standard 2.0 code generation of a type provider using these utilities" pd
 
     /// Compute a path to an FSharp.Core suitable for the target profile
     let private fsharpRestoredAssembliesPath profile =
         let compatProfile = "netstandard2.0"
-        let groupDirectory =
-            match paketPackageDirectoryForFSharpCore() with 
-            | None -> 
-                 printfn "couldn't find paket package for FSHarp.Core.  Assuming %s/FSharp.Core is suitable" (packagesDirectory false)
-                 packagesDirectory false
-            | Some dir -> dir
-
-        let file = groupDirectory ++ "lib" ++ compatProfile ++ "FSharp.Core.dll"
-        if File.Exists file then
-            Some file
-        else
-            None
+        // let groupDirectory =
+        //     match paketPackageDirectoryForFSharpCore() with 
+        //     | None -> 
+        //          printfn "couldn't find paket package for FSHarp.Core.  Assuming %s/FSharp.Core is suitable" (fsharpCorePackageDir ())
+        //          fsharpCorePackageDir () 
+        //     | Some dir -> dir
+        paketPackageDirectoryForFSharpCore ()
+        |> Option.bind (
+            fun (dir: string) ->
+                let file = dir ++ "lib" ++ compatProfile ++ "FSharp.Core.dll"
+            // let file = @"D:\nuget\fsharp.core\4.7.2\lib\netstandard2.0" ++ 
+                if File.Exists file then
+                    Some file
+                else
+                    failwithf "Couldn't find FSharp.Core at %s" file
+                    None
+        )
+        
         
     let sysAssembliesPath profile =
         match profile with
         | "netstandard2.0"->
-            let packageDir = paketPackageFromMainPaketGroup "NETStandard.Library" 
-            packageDir ++ "build" ++ "netstandard2.0" ++ "ref"
+            // let packageDir = paketPackageFromTestPaketGroup "NETStandard.Library" 
+            // packageDir ++ "build" ++ "netstandard2.0" ++ "ref"
+            @"D:\nuget\netstandard.library\2.0.3\build\netstandard2.0\ref"
         | "netcoreapp3.1"->
-            let packageDir = paketPackageFromMainPaketGroup "Microsoft.NETCore.App" 
-            packageDir ++ "ref" ++ "netcoreapp2.2"
+            // let packageDir = paketPackageFromTestPaketGroup "Microsoft.NETCore.App" 
+            // packageDir ++ "ref" ++ "netcoreapp2.2"
+            @"D:\nuget\microsoft.netcore.app\2.2.8\ref\netcoreapp2.2"
         | _ -> failwith (sprintf "unimplemented profile '%s'" profile)
 
     let FSharpCoreRef profile = 
@@ -650,7 +685,7 @@ module internal Targets =
         match restoredFSharpCore  with 
         | Some path when File.Exists path -> path
         | _ ->
-            failwithf "Couldn't find FSharp.Core at %s" (packagesDirectory false)
+            failwithf "Couldn't find FSharp.Core at %s" (fsharpCorePackageDir ())
 
     let FSharpRefs profile =
         [ match profile with

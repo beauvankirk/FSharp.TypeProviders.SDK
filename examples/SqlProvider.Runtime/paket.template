@@ -1,0 +1,28 @@
+type file
+id SqlProvider
+authors
+    Steffen Forkmann, Gustavo Guerra, JohnDoeKyrgyz, Don Syme
+owners
+    Steffen Forkmann, Gustavo Guerra, JohnDoeKyrgyz, Don Syme
+projectUrl
+    http://github.com/fsprojects/SqlProvider
+iconUrl
+    https://raw.githubusercontent.com/fsprojects/SqlProvider/master/docs/files/img/logo.png
+licenseUrl
+    http://github.com/fsprojects/SqlProvider/blob/master/LICENSE.txt
+requireLicenseAcceptance
+    false
+tags
+    F# fsharp typeproviders SqlProvider
+summary
+    This library is for the .NET platform implementing SqlProvider.
+description
+    This library is for the .NET platform implementing SqlProvider.
+tags
+    F# fsharp typeproviders SqlProvider
+files
+    bin/Release/netstandard2.0/SqlProvider.Runtime.* ==> lib/netstandard2.0
+references
+    SqlProvider.Runtime.dll
+dependencies
+  FSharp.Core >= LOCKEDVERSION
