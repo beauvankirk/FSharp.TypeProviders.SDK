@@ -1,18 +1,8 @@
-#r @"paket:
-source https://api.nuget.org/v3/index.json
-nuget Fake.Core.Target
-nuget Fake.Core.Process
-nuget Fake.Core.ReleaseNotes 
-nuget Fake.IO.FileSystem
-nuget Fake.DotNet.Cli
-nuget Fake.DotNet.MSBuild
-nuget Fake.DotNet.Paket
-nuget Fake.DotNet.NuGet //"
-
-#if !FAKE
-#load "./.fake/build.fsx/intellisense.fsx"
-#r "netstandard" // Temp fix for https://github.com/fsharp/FAKE/issues/1985
-#endif
+  
+#nowarn "213"
+#r "paket: groupref Build //"
+#load ".fake/build.fsx/intellisense.fsx"
+    
 
 open Fake 
 open Fake.Core.TargetOperators
@@ -124,6 +114,7 @@ Target.create "TestTemplatesNuGet" (fun _ ->
         *)
 )
 
+Target.create "DoNothing" ignore
 Target.create "All" ignore
 
 "Clean"
