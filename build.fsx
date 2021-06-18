@@ -23,8 +23,6 @@ open Fake.IO.Globbing.Operators
 open Fake.IO.FileSystemOperators
 // open Fake.IO.Path
 
-let test = "/sub" @@ "/test"
-
 Target.initEnvironment()
 
 let config = DotNet.BuildConfiguration.Release
@@ -38,7 +36,6 @@ let release = ReleaseNotes.load "RELEASE_NOTES.md"
 
 let packProvider (providerProject: string) (outDir: string) =
     let setParams (p:DotNet.PackOptions) = { p with OutputPath = Some outDir; Configuration = config}
-
     DotNet.pack setParams providerProject
 
 Target.create "Clean" (fun _ ->

@@ -20,8 +20,14 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: Delete global.json files to allow-cross-test
-      run: rm -rf ./**/global.json
+    - name: Delete main global.json to allow-cross-test
+      uses: JesseTG/rm@v1.0.2
+      with:
+        path: ./global.json
+    - name: Delete template global.json to allow-cross-test
+      uses: JesseTG/rm@v1.0.2
+      with:
+        path: ./templates/content/basic/global.json
     - name: Setup .NET Core
       # Fix for https://github.com/actions/setup-dotnet/issues/29#issuecomment-548740241
       uses: actions/setup-dotnet@v1

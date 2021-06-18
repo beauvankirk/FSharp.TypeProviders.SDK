@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ls -l ./**/global.json
+find . -name "global.json"
 
 dotnet tool restore
 dotnet paket restore
