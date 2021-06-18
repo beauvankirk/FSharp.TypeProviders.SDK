@@ -54,15 +54,15 @@ type StressErasingProvider (config : TypeProviderConfig) as this =
 
         provided
     )
-
+    
     let provider3 = ProvidedTypeDefinition(asm, ns, "Provider3", Some typeof<obj>, hideObjectMethods = true)
 
     do provider3.DefineStaticParameters([ProvidedStaticParameter("Host", typeof<string>)], fun name _ ->
         let provided = ProvidedTypeDefinition(asm, ns, name, Some typeof<obj>, hideObjectMethods = true)
 
-        let fn = ProvidedMethod("Test", [ ProvidedParameter("disp", typeof<IDisposable>) ], typeof<string>, fun [ arg ] ->
+        let fn = ProvidedMethod("Test", [ ProvidedParameter("disp", typeof<IDisposable>) ], typeof<string>, fun args ->
             <@@
-                use __ = (%%arg : IDisposable)
+                use __ = (%%(List.head args) : IDisposable)
                 let mutable res = ""
 
                 try 
@@ -142,9 +142,9 @@ type StressGenerativeProvider (config : TypeProviderConfig) as this =
     do provider3.DefineStaticParameters([ProvidedStaticParameter("Host", typeof<string>)], fun name _ ->
         let provided = ProvidedTypeDefinition(asm, ns, name, Some typeof<obj>, hideObjectMethods = true)
 
-        let fn = ProvidedMethod("Test", [ ProvidedParameter("disp", typeof<IDisposable>) ], typeof<string>, fun [ arg ] ->
+        let fn = ProvidedMethod("Test", [ ProvidedParameter("disp", typeof<IDisposable>) ], typeof<string>, fun args ->
             <@@
-                use __ = (%%arg : IDisposable)
+                use __ = (%%(List.head args) : IDisposable)
                 let mutable res = ""
 
                 try 

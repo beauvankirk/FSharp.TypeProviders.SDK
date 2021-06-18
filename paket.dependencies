@@ -1,11 +1,13 @@
+version 6.0.0-rc002
 source https://api.nuget.org/v3/index.json
+storage: none
 
-nuget FSharp.Core 4.7.2
- 
+nuget FSharp.Core 4.7.2 
 
 
 group Test
     source https://api.nuget.org/v3/index.json
+    storage: none
     
     nuget FSharp.Core 4.7.2
     nuget xunit
@@ -18,6 +20,7 @@ group Test
 group Build
     framework: netstandard2.0
     source https://api.nuget.org/v3/index.json
+    storage: none
 
     nuget FSharp.Core 4.7.2
     nuget Fake.Core.Target ~> 5.20.4        
@@ -28,3 +31,4 @@ group Build
     nuget Fake.DotNet.MSBuild ~> 5.20.4        
     nuget Fake.DotNet.Paket ~> 5.20.4        
     nuget Fake.DotNet.NuGet ~> 5.20.4     
+    nuget Paket.Core 6.0.0-rc002
