@@ -1,15 +1,15 @@
 version 6.0.0-rc002
 source https://api.nuget.org/v3/index.json
-storage: none
+storage: packages
 
-nuget FSharp.Core 4.7.2 
+nuget FSharp.Core ~> 5.0.1
 
 
 group Test
     source https://api.nuget.org/v3/index.json
-    storage: none
+    storage: packages
     
-    nuget FSharp.Core 4.7.2
+    nuget FSharp.Core ~> 5.0.1
     nuget xunit
     nuget xunit.runner.visualstudio
     nuget coverlet.collector
@@ -21,14 +21,16 @@ group Build
     framework: netstandard2.0
     source https://api.nuget.org/v3/index.json
     storage: none
+    generate_load_scripts: true
 
-    nuget FSharp.Core 4.7.2
+    nuget FSharp.Core ~> 5.0.0
     nuget Fake.Core.Target ~> 5.20.4        
     nuget Fake.Core.Process ~> 5.20.4        
     nuget Fake.Core.ReleaseNotes  ~> 5.20.4        
-    nuget Fake.IO.FileSystem ~> 5.20.4        
+    nuget Fake.IO.FileSystem ~> 5.20.4  
+    nuget Fake.IO.Zip ~> 5.20.4      
     nuget Fake.DotNet.Cli ~> 5.20.4        
     nuget Fake.DotNet.MSBuild ~> 5.20.4        
     nuget Fake.DotNet.Paket ~> 5.20.4        
     nuget Fake.DotNet.NuGet ~> 5.20.4     
-    nuget Paket.Core 6.0.0-rc002
+    nuget Paket.Core 6.0.0-rc002 redirects: force

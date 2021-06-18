@@ -10,6 +10,8 @@
 
 namespace ProviderImplementation.ProvidedTypes
 
+#nowarn "3218" "3390"
+
 open System
 open System.Reflection
 open Microsoft.FSharp.Quotations

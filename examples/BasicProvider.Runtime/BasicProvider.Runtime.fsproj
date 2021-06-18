@@ -6,6 +6,7 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <FSharpToolsDirectory>typeproviders</FSharpToolsDirectory>
     <PackagePath>typeproviders</PackagePath>
+    <NoWarn>$(NoWarn);NU5100;FS3218;FS3390</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>

@@ -3,6 +3,7 @@
     <OutputType>Library</OutputType>
     <TargetFramework>netstandard2.0</TargetFramework>
     <DefineConstants>IS_DESIGNTIME</DefineConstants>
+    <NoWarn>$(NoWarn);NU5100;FS3218;FS3390</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\..\paket-files\fsprojects\FSharp.TypeProviders.SDK\src\ProvidedTypes.fsi">
