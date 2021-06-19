@@ -14,7 +14,7 @@ group Test
     nuget xunit.runner.visualstudio
     nuget coverlet.collector
     nuget Microsoft.NET.Test.Sdk
-    nuget Microsoft.NETCore.App
+    nuget Microsoft.NETFramework.ReferenceAssemblies framework: net461
 
     
 group Build
