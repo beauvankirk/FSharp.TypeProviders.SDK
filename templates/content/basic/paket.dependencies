@@ -1,6 +1,6 @@
 version 6.0.0-rc002
 source https://api.nuget.org/v3/index.json
-storage: none
+storage: packages
 
 nuget FSharp.Core ~> 5.0.1
 
@@ -10,7 +10,7 @@ github fsprojects/FSharp.TypeProviders.SDK src/ProvidedTypes.fs
 
 group Test
     source https://api.nuget.org/v3/index.json
-    storage: none
+    storage: packages
     
     nuget FSharp.Core ~> 5.0.1
     nuget Microsoft.NET.Test.Sdk

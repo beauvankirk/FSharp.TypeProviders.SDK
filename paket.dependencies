@@ -20,7 +20,7 @@ group Test
 group Build
     framework: netstandard2.0
     source https://api.nuget.org/v3/index.json
-    storage: none
+    storage: packages
     generate_load_scripts: true
 
     nuget FSharp.Core ~> 5.0.0
