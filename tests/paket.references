@@ -1,7 +1,6 @@
-FSharp.Core
 
 group Test
-
+    FSharp.Core
     xunit
     xunit.runner.visualstudio
     coverlet.collector
