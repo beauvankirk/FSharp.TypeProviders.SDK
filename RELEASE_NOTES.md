@@ -1,3 +1,6 @@
+#### 6.0.1 - June 18 2021
+* Improve testing and cross-targeting
+
 #### 6.0.0 - December 24, 2019
 * Template migrated to .NET Core 3.1 
 
